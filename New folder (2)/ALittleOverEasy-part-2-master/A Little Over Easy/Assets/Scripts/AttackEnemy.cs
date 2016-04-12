@@ -7,6 +7,9 @@ public class AttackEnemy : MonoBehaviour
     private int attackHash = Animator.StringToHash("attacking");
     private int swingStateHash = Animator.StringToHash("Base Layer.swordSwing2");
     private bool attacking = false;
+    [SerializeField]
+    private int attackFrames;
+    private int remainingAttackFrames = 0;
 
     // Use this for initialization
     void Start ()
@@ -20,9 +23,19 @@ public class AttackEnemy : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             animator.SetTrigger(attackHash);
+            remainingAttackFrames = attackFrames;
+            attacking = true;
         }
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        attacking = stateInfo.fullPathHash == swingStateHash;
+        else if (remainingAttackFrames > 0)
+        {
+            remainingAttackFrames--;
+        }
+        else
+        {
+            attacking = false;
+        }
+        //AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        //attacking = stateInfo.fullPathHash == swingStateHash;
     }
 
     void OnTriggerStay(Collider other)
