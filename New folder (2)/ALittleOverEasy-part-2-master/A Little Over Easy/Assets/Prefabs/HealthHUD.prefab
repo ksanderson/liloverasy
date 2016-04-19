@@ -27,7 +27,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36fc89fe340f818408cc8859a7d87bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelManager: {fileID: 127216, guid: 1ee7275dcf587c64f8a47a3c59e7cfb6, type: 2}
   player: {fileID: 0}
+  deathScreen: {fileID: 0}
+  deathText: {fileID: 0}
   egg: {fileID: 159160, guid: 8642bfda89dde09419e6c6b4affbf32b, type: 2}
   crackedEgg: {fileID: 198326, guid: 702c1744e63f36f47bd0dd71c6dc9705, type: 2}
 --- !u!224 &22440516

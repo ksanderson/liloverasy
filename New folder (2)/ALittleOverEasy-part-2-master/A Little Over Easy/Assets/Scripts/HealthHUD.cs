@@ -6,7 +6,13 @@ using System.Collections.Generic;
 public class HealthHUD : MonoBehaviour
 {
     [SerializeField]
+    private GameObject LevelManager;
+    [SerializeField]
     private GameObject player;
+    [SerializeField]
+    private GameObject deathScreen;
+    [SerializeField]
+    private GameObject deathText;
     [SerializeField]
     private GameObject egg;
     [SerializeField]
@@ -32,6 +38,18 @@ public class HealthHUD : MonoBehaviour
         else if (healthDelta < 0)
         {
             LoseHealth();
+        }
+        if (localHealth > 0)
+        {
+            deathScreen.SetActive(false);
+            deathText.SetActive(false);
+        }
+        else
+        {
+            deathScreen.SetActive(true);
+            deathText.SetActive(true);
+            Destroy(player);
+            StartCoroutine(Reload());
         }
     }
 
@@ -67,5 +85,11 @@ public class HealthHUD : MonoBehaviour
             eggs.Push(anEgg);
         }
         localHealth--;
+    }
+
+    private IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(3.0f);
+        LevelManager.GetComponent<LevelManager>().LoadScene("menu");
     }
 }

@@ -13,7 +13,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 
-        
+        private int timeTilMove = 0;
+
         private void Start()
         {
             // get the transform of the main camera
@@ -37,7 +38,16 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         {
             if (!m_Jump)
             {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                //m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+            }
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                timeTilMove = 30;
+            }
+            else if (timeTilMove > 0)
+            {
+                timeTilMove--;
             }
         }
 
@@ -48,7 +58,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // read inputs
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             float v = CrossPlatformInputManager.GetAxis("Vertical");
-            bool crouch = Input.GetButton("Fire3");
+            bool crouch = /*Input.GetButton("Fire3")*/ false;
+
+            if (timeTilMove > 0)
+            {
+                h = 0;
+                v = 0;
+            }
 
             // calculate move direction to pass to character
             if (m_Cam != null)

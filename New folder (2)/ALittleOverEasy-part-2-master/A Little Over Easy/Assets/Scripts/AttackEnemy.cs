@@ -10,6 +10,9 @@ public class AttackEnemy : MonoBehaviour
     [SerializeField]
     private int attackFrames;
     private int remainingAttackFrames = 0;
+    private int coolDown = 0;
+    [SerializeField]
+    private int maxCoolDown;
 
     // Use this for initialization
     void Start ()
@@ -20,11 +23,12 @@ public class AttackEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (coolDown <= 0 && Input.GetButtonDown("Fire1"))
         {
             animator.SetTrigger(attackHash);
             remainingAttackFrames = attackFrames;
             attacking = true;
+            coolDown = maxCoolDown;
         }
         else if (remainingAttackFrames > 0)
         {
@@ -33,6 +37,10 @@ public class AttackEnemy : MonoBehaviour
         else
         {
             attacking = false;
+        }
+        if (coolDown > 0)
+        {
+            coolDown--;
         }
         //AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         //attacking = stateInfo.fullPathHash == swingStateHash;

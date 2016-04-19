@@ -42,16 +42,9 @@ public class PlayerHealth : MonoBehaviour
                 remainingInvinsibilityFrames -= 1;
             }
         }
-        /*
-        if (Input.GetButtonDown("Fire3"))
-        {
-            TakeDamage(5);
-        }
-        */
         if (health <= 0)
         {
             health = 0;
-            //Die
         }
     }
 
